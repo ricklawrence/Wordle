@@ -16,15 +16,15 @@ xmlns="http://www.w3.org/TR/REC-html40">
   <o:Template>Normal</o:Template>
   <o:LastAuthor>Rick Lawrence</o:LastAuthor>
   <o:Revision>2</o:Revision>
-  <o:TotalTime>6</o:TotalTime>
-  <o:Created>2022-01-28T19:27:00Z</o:Created>
-  <o:LastSaved>2022-01-28T19:27:00Z</o:LastSaved>
+  <o:TotalTime>8</o:TotalTime>
+  <o:Created>2022-01-28T19:39:00Z</o:Created>
+  <o:LastSaved>2022-01-28T19:39:00Z</o:LastSaved>
   <o:Pages>1</o:Pages>
-  <o:Words>32</o:Words>
-  <o:Characters>188</o:Characters>
+  <o:Words>37</o:Words>
+  <o:Characters>216</o:Characters>
   <o:Lines>1</o:Lines>
   <o:Paragraphs>1</o:Paragraphs>
-  <o:CharactersWithSpaces>219</o:CharactersWithSpaces>
+  <o:CharactersWithSpaces>252</o:CharactersWithSpaces>
   <o:Version>16.00</o:Version>
  </o:DocumentProperties>
  <o:OfficeDocumentSettings>
@@ -790,6 +790,9 @@ p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxS
 	mso-hansi-theme-font:minor-latin;
 	mso-bidi-font-family:"Times New Roman";
 	mso-bidi-theme-font:minor-bidi;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	mso-default-props:yes;
@@ -912,14 +915,16 @@ word-wrap:break-word'>
 text-indent:-.25in;mso-list:l0 level1 lfo1'><![if !supportLists]><span
 style='mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin'><span
 style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Test Wordle algorithm against multiple
+</span></span></span><![endif]><span class=SpellE>mainWordle.m</span>:<span
+style='mso-spacerun:yes'>  </span>Test Wordle algorithm against multiple
 evaluation sets.</p>
 
 <p class=MsoListParagraphCxSpLast style='margin-bottom:0in;mso-add-space:auto;
 text-indent:-.25in;mso-list:l0 level1 lfo1'><![if !supportLists]><span
 style='mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin'><span
 style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Provide guesses for Live Wordle at <a
+</span></span></span><![endif]><span class=SpellE>liveWordle.m</span>:<span
+style='mso-spacerun:yes'>     </span>Provide guesses for Live Wordle at <a
 href="https://www.powerlanguage.co.uk/wordle/">https://www.powerlanguage.co.uk/wordle/</a></p>
 
 </div>
