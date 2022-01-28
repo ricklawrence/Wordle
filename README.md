@@ -9,30 +9,30 @@ xmlns="http://www.w3.org/TR/REC-html40">
 <meta name=ProgId content=Word.Document>
 <meta name=Generator content="Microsoft Word 15">
 <meta name=Originator content="Microsoft Word 15">
-<link rel=File-List href="README_files/filelist.xml">
+<link rel=File-List href="README1_files/filelist.xml">
 <!--[if gte mso 9]><xml>
  <o:DocumentProperties>
   <o:Author>Rick Lawrence</o:Author>
   <o:Template>Normal</o:Template>
   <o:LastAuthor>Rick Lawrence</o:LastAuthor>
   <o:Revision>2</o:Revision>
-  <o:TotalTime>42</o:TotalTime>
-  <o:Created>2022-01-28T19:08:00Z</o:Created>
-  <o:LastSaved>2022-01-28T19:08:00Z</o:LastSaved>
+  <o:TotalTime>6</o:TotalTime>
+  <o:Created>2022-01-28T19:27:00Z</o:Created>
+  <o:LastSaved>2022-01-28T19:27:00Z</o:LastSaved>
   <o:Pages>1</o:Pages>
-  <o:Words>252</o:Words>
-  <o:Characters>1438</o:Characters>
-  <o:Lines>11</o:Lines>
-  <o:Paragraphs>3</o:Paragraphs>
-  <o:CharactersWithSpaces>1687</o:CharactersWithSpaces>
+  <o:Words>32</o:Words>
+  <o:Characters>188</o:Characters>
+  <o:Lines>1</o:Lines>
+  <o:Paragraphs>1</o:Paragraphs>
+  <o:CharactersWithSpaces>219</o:CharactersWithSpaces>
   <o:Version>16.00</o:Version>
  </o:DocumentProperties>
  <o:OfficeDocumentSettings>
   <o:AllowPNG/>
  </o:OfficeDocumentSettings>
 </xml><![endif]-->
-<link rel=themeData href="README_files/themedata.thmx">
-<link rel=colorSchemeMapping href="README_files/colorschememapping.xml">
+<link rel=themeData href="README1_files/themedata.thmx">
+<link rel=colorSchemeMapping href="README1_files/colorschememapping.xml">
 <!--[if gte mso 9]><xml>
  <w:WordDocument>
   <w:SpellingState>Clean</w:SpellingState>
@@ -790,12 +790,6 @@ p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxS
 	mso-hansi-theme-font:minor-latin;
 	mso-bidi-font-family:"Times New Roman";
 	mso-bidi-theme-font:minor-bidi;}
-span.SpellE
-	{mso-style-name:"";
-	mso-spl-e:yes;}
-span.GramE
-	{mso-style-name:"";
-	mso-gram-e:yes;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	mso-default-props:yes;
@@ -912,12 +906,6 @@ word-wrap:break-word'>
 
 <div class=WordSection1>
 
-<p class=MsoNormal style='margin-bottom:0in'><b>Code to play Wordle<o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in'><b>Rick Lawrence<o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in'><o:p>&nbsp;</o:p></p>
-
 <p class=MsoNormal style='margin-bottom:0in'>This code operates in two modes:</p>
 
 <p class=MsoListParagraphCxSpFirst style='margin-bottom:0in;mso-add-space:auto;
@@ -933,110 +921,6 @@ style='mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin'><span
 style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>Provide guesses for Live Wordle at <a
 href="https://www.powerlanguage.co.uk/wordle/">https://www.powerlanguage.co.uk/wordle/</a></p>
-
-<p class=MsoNormal style='margin-bottom:0in'><o:p>&nbsp;</o:p></p>
-
-<p class=MsoNormal style='margin-bottom:0in'><span class=SpellE><b>matlab</b></span><b>:<o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in'><span class=SpellE>mainWordle</span><span
-style='mso-tab-count:2'>                    </span>Controls backtesting of
-Wordle algorithm against multiple evaluation sets</p>
-
-<p class=MsoNormal style='margin-bottom:0in'><span class=SpellE>playWordle</span><span
-style='mso-tab-count:2'>                      </span>Simulate a single Wordle
-puzzle</p>
-
-<p class=MsoNormal style='margin-bottom:0in'><span class=SpellE>liveWordle</span><span
-style='mso-tab-count:2'>                       </span>Provides guesses for
-playing Live Wordle</p>
-
-<p class=MsoNormal style='margin-bottom:0in'><span class=SpellE>readData</span><span
-style='mso-tab-count:2'>                          </span>Reads dictionary and
-past answer files</p>
-
-<p class=MsoNormal style='margin-bottom:0in'><span class=SpellE>readWikipediaFile</span><span
-style='mso-tab-count:1'>           </span>Reads Wikipedia word frequencies</p>
-
-<p class=MsoNormal style='margin-bottom:0in'><span class=SpellE>buildDictionary</span><span
-style='mso-tab-count:2'>               </span>Constructs dictionary including
-necessary indices</p>
-
-<p class=MsoNormal style='margin-bottom:0in'><span class=SpellE>scoreTheGuess</span><span
-style='mso-tab-count:2'>                </span>Returns score for a guess
-against known answer</p>
-
-<p class=MsoNormal style='margin-bottom:0in'><span class=SpellE>generateNewGuess</span><span
-style='mso-tab-count:1'>        </span>Returns best next guess</p>
-
-<p class=MsoNormal style='margin-bottom:0in'><span class=SpellE>generateCandidates</span><span
-style='mso-tab-count:1'>       </span>Generates a list of candidate words
-satisfying information from previous guess</p>
-
-<p class=MsoNormal style='margin-bottom:0in'>rankCandidates1<span
-style='mso-tab-count:1'>             </span>Ranks the list of candidates
-seeking to maximize information returned</p>
-
-<p class=MsoNormal style='margin-bottom:0in'>rankCandidates2<span
-style='mso-tab-count:1'>             </span>Ranks the list of candidates in
-terms of Wikipedia word frequencies</p>
-
-<p class=MsoNormal style='margin-bottom:0in'><span class=SpellE>plotResults</span><span
-style='mso-tab-count:2'>                      </span>Generate figures
-summarizing performance against evaluation sets</p>
-
-<p class=MsoNormal style='margin-bottom:0in'><span class=SpellE>getTopWikipediaWords</span><span
-style='mso-tab-count:1'>  </span>Build evaluation set using words with highest
-Wikipedia frequency</p>
-
-<p class=MsoNormal style='margin-bottom:0in'><o:p>&nbsp;</o:p></p>
-
-<p class=MsoNormal style='margin-bottom:0in'><b>data:<o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in'>answers2315.csv<span
-style='mso-tab-count:1'>             </span>List of 2315 words that form <span
-class=GramE>basis</span> for all Wordle puzzles</p>
-
-<p class=MsoNormal style='margin-bottom:0in'>dictionary2449.csv<span
-style='mso-tab-count:1'>          </span>Dictionary of 2449 5-letter words (not
-used)</p>
-
-<p class=MsoNormal style='margin-bottom:0in'>dictionary9332.csv<span
-style='mso-tab-count:1'>          </span>Dictionary of 9332 5-letter words (not
-used)</p>
-
-<p class=MsoNormal style='margin-bottom:0in'>dictionary12972.csv<span
-style='mso-tab-count:1'>       </span>Dictionary of<span class=GramE>12972<span
-style='mso-spacerun:yes'>  </span>5</span>-letter words (not used)</p>
-
-<p class=MsoNormal style='margin-bottom:0in'>pastAnswers.csv<span
-style='mso-tab-count:1'>              </span>List of daily Wordle answers since
-January 1, 2022</p>
-
-<p class=MsoNormal style='margin-bottom:0in'>wikipediaWordFreq.txt<span
-style='mso-tab-count:1'>  </span>Wikipedia word frequencies for 2.18M words</p>
-
-<p class=MsoNormal style='margin-bottom:0in'><o:p>&nbsp;</o:p></p>
-
-<p class=MsoNormal style='margin-bottom:0in'><b>results:<o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in'>Contains miscellaneous PowerPoint
-slide decks summarizing various findings.</p>
-
-<p class=MsoNormal style='margin-bottom:0in'><o:p>&nbsp;</o:p></p>
-
-<p class=MsoNormal style='margin-bottom:0in'><b>archive:<o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in'>Contains periodic code backups.</p>
-
-<p class=MsoNormal style='margin-bottom:0in'><o:p>&nbsp;</o:p></p>
-
-<p class=MsoNormal style='margin-bottom:0in'><o:p>&nbsp;</o:p></p>
-
-<p class=MsoNormal style='margin-bottom:0in'><o:p>&nbsp;</o:p></p>
-
-<p class=MsoNormal style='margin-bottom:0in'><o:p>&nbsp;</o:p></p>
-
-<p class=MsoNormal style='margin-bottom:0in'><o:p>&nbsp;</o:p></p>
 
 </div>
 
