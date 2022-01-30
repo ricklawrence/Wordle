@@ -33,10 +33,4 @@ candidates = unique(candidates(index));
 candidates = setdiff(candidates, previousGuesses);
 
 %=== rank candidates to get words with common letters not used in previous guess
-[candidates, scores]   = rankCandidates1(candidates, previousGuesses, previousScores, dictionary);
-
-%=== if we have only a few candidates left, rank them by wikipedia word frequency
-if length(candidates) <= parameters.numCandidates2Switch && length(candidates) > 1
-  [candidates, wikiRanks] = rankCandidates2(candidates, dictionary);
-end
-
+[candidates, scores]   = rankCandidates(candidates, previousGuesses, previousScores, dictionary);

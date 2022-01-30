@@ -12,13 +12,13 @@ figure(figureNum); fprintf('Figure %d.\n', figureNum);
 %=== get data
 numGames       = length(allAnswers);
 bins           = [0:1:max(numGuesses)];
-guesses        = histcounts(numGuesses, bins);
+guesses        = histcounts(numGuesses, bins+0.5);  % in case of rounding error
 index1         = 1:6;
 index2         = 7:max(numGuesses);
 ticks          = bins(2:end);
 meanGuesses    = mean(numGuesses);
 successful     = length(find(numGuesses <= 6));
-percent        = 100 * successful / numGames;
+accuracy       = 100 * successful / numGames;
 [maxGuesses,i] = max(numGuesses);
 maxAnswer      = upper(char(allAnswers(i(1))));
 
@@ -28,17 +28,22 @@ h  = bar(index2, guesses(index2), 0.8, 'stacked', 'FaceColor', 'r'); hold on;
 
 %=== set title
 if strcmp(parameters.evaluationSet,'Full Dictionary')
-  strTitle = sprintf('Evaluation Set: %d answers from Wordle complete answer set', numGames);
+  strTitle1 = sprintf('Evaluation Set: %d answers from Wordle complete answer set', numGames);
 elseif strcmp(parameters.evaluationSet, 'Previous Answers')
-  strTitle = sprintf('Evaluation Set: %d answers from all daily 2022 Wordle puzzles', numGames);
+  strTitle1 = sprintf('Evaluation Set: %d answers from all daily 2022 Wordle puzzles', numGames);
 end
+strTitle2    = sprintf('%s:  Success Rate = %2.1f%%  Mean Guesses = %3.2f', ...
+                        parameters.wordleTitle, accuracy, meanGuesses);
+strTitle     = sprintf('%s\n%s', strTitle1, strTitle2);
 
 %=== set legend and description
-strLegend(1) = {sprintf('Won  (%3.1f%% of %d puzzles solved within 6 guesses)', percent, numGames)}; 
+strLegend(1) = {sprintf('Won  (Success Rate = %2.1f%%)', accuracy)}; 
 strLegend(2) = {sprintf('Lost (%s required %d guesses)', upper(maxAnswer), maxGuesses);}; 
-strText1     = strTitle;
-strText2     = sprintf('Mean number of guesses = %3.2f', meanGuesses);
-strText      = sprintf('%s\n%s', strText1, strText2);
+if strcmp(parameters.evaluationSet, 'Previous Answers')
+  strLegendLocation = 'NorthWest';
+elseif strcmp(parameters.evaluationSet, 'Full Dictionary')
+  strLegendLocation = 'NorthEast';
+end
 
 %=== finish plot
 hold off;
@@ -49,8 +54,8 @@ set(gca,'FontSize',  12);
 set(gca,'XTick',[ticks]);  
 xlabel('Number of Guesses Required to Solve Puzzle', 'FontSize', 16);
 ylabel('Number of Wordle Games', 'FontSize', 16);
-legend(strLegend, 'Location', 'NorthWest', 'Fontsize', 12, 'FontName','FixedWidth', 'FontWeight','bold');
-title(strText, 'FontSize', 14);
+legend(strLegend, 'Location', strLegendLocation, 'Fontsize', 12, 'FontName','FixedWidth', 'FontWeight','bold');
+title(strTitle, 'FontSize', 14);
 
 if ~strcmp(parameters.evaluationSet, 'Previous Answers')
   return;
@@ -73,8 +78,11 @@ xTicks  = 1:length(allAnswers);
 xLabels = upper(allAnswers);
 
 %=== labels
-strTitle     = sprintf('Results for %d Daily Wordle Puzzles From %s to %s\nSuccess Rate = %2.1f%%  Mean Guesses = %3.2f', ...
-                        length(history.dates), char(history.dates(1)), char(history.dates(end)), accuracy, meanGuesses);
+strTitle1    = sprintf('Results for %d Daily Wordle Puzzles From %s to %s', ...
+                       length(history.dates), char(history.dates(1)), char(history.dates(end)));
+strTitle2    = sprintf('%s:  Success Rate = %2.1f%%  Mean Guesses = %3.2f', ...
+                        parameters.wordleTitle, accuracy, meanGuesses);
+strTitle     = sprintf('%s\n%s', strTitle1, strTitle2);
 xLabel       = sprintf('Wordle Daily Answer');
 yLabel       = 'Number of Guesses';
 

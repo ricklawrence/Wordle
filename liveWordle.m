@@ -17,9 +17,6 @@ fprintf('Playing %s Wordle (%d initial guesses) using %s algorithm.\n', ...
 if strcmp(parameters.wordleMode, 'Easy') || strcmp(parameters.algorithm, 'Random')
   error('Please switch to Hard Wordle with Ranked algorithm to get best results.')
 end
-if parameters.numCandidates2Switch > 0
-  fprintf('Switching to word-frequency ranking when there are <= %d candidates.\n', parameters.numCandidates2Switch);
-end
 fprintf('\n');
 
 %=== initalize

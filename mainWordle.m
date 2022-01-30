@@ -20,26 +20,25 @@ parameters.maxIterations        = 50;
 parameters.maxGames             = 10000;
 parameters.debug                = 0;
 
-parameters.evaluationSet        = 'Top Wikipedia Words';
-parameters.evaluationSet        = 'Full Dictionary';
 parameters.evaluationSet        = 'Single Answer';
+parameters.evaluationSet        = 'Full Dictionary';
 parameters.evaluationSet        = 'Previous Answers';
 
 %=== DEFAULT is Hard Wordle (1 initial guess)
 parameters.numInitialGuesses    = 1;                 % number of pre-computed initial guesses to use at start of game
 if parameters.numInitialGuesses == 1
   parameters.wordleMode         = 'Hard';            % guess must be chosen from eligible candidates
+  parameters.wordleTitle        = 'HARD WORDLE';
 else
   parameters.wordleMode         = 'Easy';            % you can use any word as guess 
+  parameters.wordleTitle        = sprintf('EASY WORDLE (%d FIXED INITIAL GUESSES)', parameters.numInitialGuesses);
 end
+
 
 %=== DEFAULT is ranked with no switching to use Wikipedia ranking
 parameters.algorithm            = 'Random';
 parameters.algorithm            = 'Ranked';          % default = 'Ranked'
 parameters.numCandidates2Switch = 0;                 % default = 0; = 0 means we do not switch from standard ranked candidates
-if strcmp(parameters.algorithm, 'Random')
-  parameters.numCandidates2Switch = 0;               % no ranking used in Random option
-end
 
 %----------------------------------------------------------------------------------------------------------------
 % PROCESS DATA AND BUILD DICTIONARY
@@ -57,15 +56,10 @@ pastAnswers = history.answers;
 dictionaryWords = answers;
 fprintf('Using   2315 possible answers as dictionary.\n\n');
 
-%=== process wikipedia word frequency file and join word frequencies into dictionary
-%=== https://github.com/IlyaSemenov/wikipedia-word-frequency/blob/master/results/enwiki-20190320-words-frequency.txt
-inputFile = sprintf('%s/%s', parameters.INPUT_PATH, 'wikipediaWordFrequency.txt'); 
-wikiRanks = readWikipediaFile(inputFile, dictionaryWords, 0);
-
 %=== build dictionary structure
 debugWord = 'nanny';
 debugWord = [];
-dictionary = buildDictionary(dictionaryWords, wikiRanks, debugWord);
+dictionary = buildDictionary(dictionaryWords, debugWord);
 
 %----------------------------------------------------------------------------------------------------------------
 % BUILD EVALUATION SET AND INITIALIZE
@@ -81,9 +75,6 @@ elseif strcmp(parameters.evaluationSet, 'Single Answer')
   %allAnswers = dictionary.words(1544);                        % RARER
   %allAnswers = dictionary.words(1287);                        % NANNY
   parameters.debug = 3;
-elseif strcmp(parameters.evaluationSet, 'Top Wikipedia Words')
-  allAnswers = getTopWikipediaWords(1001, dictionary, pastAnswers);   % 1001 since we remove the initial guess                          
-  parameters.debug = 0;
 end
 
 %=== set initial guess for all games (and remove from evaluation set)
@@ -93,7 +84,7 @@ initialGuess = generateNewGuess(candidates, dictionary, [], iteration);
 allAnswers   = setdiff(allAnswers, initialGuess, 'stable');         % remove initial guess from evaluation set
 
 %=== print summary
-fprintf('\nPlaying %s Wordle (%d initial guesses) using %s algorithm against %s evaluation set.\n', ...
+fprintf('Playing %s Wordle (%d initial guesses) using %s algorithm against %s evaluation set.\n', ...
            parameters.wordleMode, parameters.numInitialGuesses, parameters.algorithm, parameters.evaluationSet);
 if strcmp(parameters.wordleMode, 'Easy')
   fprintf('We use the following words as the initial %d guesses in Easy Wordle: ', parameters.numInitialGuesses);
@@ -103,9 +94,6 @@ if strcmp(parameters.wordleMode, 'Easy')
   fprintf('\n');
 else      
   fprintf('Using %s as the initial guess in Hard Wordle.\n', upper(initialGuess));
-end
-if parameters.numCandidates2Switch > 0
-  fprintf('Switching to word-frequency ranking when there are <= %d candidates.\n', parameters.numCandidates2Switch);
 end
 
 %----------------------------------------------------------------------------------------------------------------

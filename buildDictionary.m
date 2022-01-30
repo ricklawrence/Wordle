@@ -1,4 +1,4 @@
-function dictionary = buildDictionary(dictionaryWords, wikiRanks, testWord)
+function dictionary = buildDictionary(dictionaryWords, testWord)
 %
 % build the dictionary structure
 %
@@ -36,11 +36,11 @@ fullScores = letterMatrix1 * letterProbs;
 %=== get initial guess
 [~,sortIndex] = sort(fullScores,'descend');
 initialGuess  = char(dictionaryWords(sortIndex(3)));  % alter, alter, later are tied at top ... use 'later'
+upper(dictionaryWords(sortIndex(1:20)));
 
 %=== save all data
 dictionary.length        = length(dictionaryWords);
 dictionary.words         = dictionaryWords;
-dictionary.wikiRanks     = wikiRanks;
 dictionary.alphabet      = alphabet;
 dictionary.letterProbs   = letterProbs;
 dictionary.letterMatrix0 = letterMatrix0;
@@ -49,14 +49,14 @@ dictionary.letterMatrix2 = letterMatrix2;
 dictionary.fullScores    = fullScores;
 dictionary.initialGuess  = initialGuess;
 
-%==== get best successive initial guesses used in Easy Wordle
+%==== get best 5 successive initial guesses used in Easy Wordle
 initialGuesses    = cell(5,1);
 initialGuesses(1) = {dictionary.initialGuess};
-alphabet0         = dictionary.alphabet;
+alphabet          = dictionary.alphabet;
 for i=2:5
-  usedLetters       = unique(char(initialGuesses(1:i-1)));
-  alphabet0         = setdiff(alphabet0, usedLetters);
-  [~,indexA]        = intersect(dictionary.alphabet, alphabet0);
+  usedLetters       = unique(char(initialGuesses(1:i-1)));    % used letters
+  alphabet          = setdiff(alphabet, usedLetters);         % remove used letters from alphabet
+  [~,indexA]        = intersect(dictionary.alphabet, alphabet);
   scores            = dictionary.letterMatrix1(:,indexA) * dictionary.letterProbs(indexA);
   [~,sortIndex]     = sort(scores,'descend');
   initialGuesses(i) = dictionary.words(sortIndex(1));
@@ -85,7 +85,6 @@ if ~isempty(testWord)
   %=== print metrics for test word
   w = find(strcmp(testWord, dictionary.words));
   fprintf('Metrics for ''%s'':\n', testWord);
-  fprintf('Wikipedia rank = %d\n', dictionary.wikiRanks(w));
   fprintf('Letter Matrix:\n');
   for i=1:length(dictionary.alphabet)
     fprintf('%2s', dictionary.alphabet(i));

@@ -36,7 +36,7 @@ while ~strcmp(vector, '22222') && iteration < parameters.maxIterations
   end
   if parameters.debug == 3 && length(candidates) <= 30
     for w=1:length(candidates)
-      fprintf('  %s\t%6.4f\n', char(candidates(w)), scores(w));
+      fprintf('  %s\t%6.4f\n', char(upper(candidates(w))), scores(w));
     end
   end
   
