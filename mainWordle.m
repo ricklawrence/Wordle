@@ -57,9 +57,7 @@ dictionaryWords = answers;
 fprintf('Using   2315 possible answers as dictionary.\n\n');
 
 %=== build dictionary structure
-debugWord = 'nanny';
-debugWord = [];
-dictionary = buildDictionary(dictionaryWords, debugWord);
+dictionary = buildDictionary(dictionaryWords, []);
 
 %----------------------------------------------------------------------------------------------------------------
 % BUILD EVALUATION SET AND INITIALIZE
@@ -117,11 +115,16 @@ end
 [minGuesses, gameMin] = min(numGuesses);
 successful = length(find(numGuesses <= 6));
 fprintf('\nPlayed %d games using %s algorithm:\n', numGames, parameters.algorithm);
-fprintf(' Mean number of guesses                 = %4.2f\n',                 mean(numGuesses));
-fprintf(' Mean number of candidates              = %4.0f\n',                 mean(numCandidates));
-fprintf(' Number of games with 6 guesses or less = %4d (%3.1f%%)\n',         successful, 100*successful/numGames);
+fprintf(' Mean number of guesses                 = %4.2f\n',               mean(numGuesses));
+fprintf(' Mean number of candidates              = %4.0f\n',               mean(numCandidates));
+fprintf(' Number of games with 6 guesses or less = %4d (%3.1f%%)\n',       successful, 100*successful/numGames);
 fprintf(' %s required the most guesses        = %4d\n',                    char(upper(allAnswers(gameMax))), maxGuesses);
 fprintf(' %s required the fewest guesses      = %4d\n',                    char(upper(allAnswers(gameMin))), minGuesses);
+
+%=== plot results
+if strcmp(parameters.evaluationSet,'Full Dictionary') || strcmp(parameters.evaluationSet, 'Previous Answers')
+  plotResults(numGuesses, allAnswers, history);
+end
 
 %=== print worst words
 printWorst = 0;
@@ -133,9 +136,4 @@ if printWorst
     i = sortIndex(ii);
     fprintf('%s\t%d\n', char(allAnswers(i)), numGuesses(i));
   end
-end
-
-%=== plot results
-if strcmp(parameters.evaluationSet,'Full Dictionary') || strcmp(parameters.evaluationSet, 'Previous Answers')
-  plotResults(numGuesses, allAnswers, history);
 end
