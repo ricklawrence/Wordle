@@ -13,7 +13,7 @@ letterMatrix = zeros(length(alphabet),length(dictionaryWords),5);
 for L=1:length(alphabet)
   letter            = alphabet(L);
   k                 = find(x == letter);
-  letterMatrix(L,k) = 1;                 % letterMatrix = 1 if this letter appears in this location
+  letterMatrix(L,k) = 1;                 % letterMatrix = 1 if letter L appears in location k
 end
 
 %=== transpose this matrix and save as letterMatrix0
@@ -52,14 +52,14 @@ dictionary.initialGuess  = initialGuess;
 %==== get best 5 successive initial guesses used in Easy Wordle
 initialGuesses    = cell(5,1);
 initialGuesses(1) = {dictionary.initialGuess};
-alphabet          = dictionary.alphabet;
+alphabet          = dictionary.alphabet;                      % start with full alphabet
 for i=2:5
   usedLetters       = unique(char(initialGuesses(1:i-1)));    % used letters
   alphabet          = setdiff(alphabet, usedLetters);         % remove used letters from alphabet
   [~,indexA]        = intersect(dictionary.alphabet, alphabet);
   scores            = dictionary.letterMatrix1(:,indexA) * dictionary.letterProbs(indexA);
   [~,sortIndex]     = sort(scores,'descend');
-  initialGuesses(i) = dictionary.words(sortIndex(1));
+  initialGuesses(i) = dictionary.words(sortIndex(1));         % save word with highest score
 end
 dictionary.initialGuesses = initialGuesses;
 

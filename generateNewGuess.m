@@ -10,7 +10,7 @@ if iteration == 1 && strcmp(parameters.wordleMode, 'Hard')
   return;
 end
   
-%=== if this is easy wordle, the first 3 guesses are pre-determinined based on letter coverage  
+%=== if this is easy wordle, the first numInitialGuesses are pre-determinined based on letter coverage  
 if iteration <= parameters.numInitialGuesses && strcmp(parameters.wordleMode, 'Easy')
   guess = char(dictionary.initialGuesses(iteration));
   return;

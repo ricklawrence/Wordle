@@ -18,14 +18,13 @@ parameters.INPUT_PATH           = '../data';
 parameters.bkgdColor            = [1 1 0.8];        % background color for plots
 parameters.maxIterations        = 50;
 parameters.maxGames             = 10000;
-parameters.debug                = 0;
 
 parameters.evaluationSet        = 'Single Answer';
-parameters.evaluationSet        = 'Full Dictionary';
 parameters.evaluationSet        = 'Previous Answers';
+parameters.evaluationSet        = 'Full Dictionary';
 
 %=== DEFAULT is Hard Wordle (1 initial guess)
-parameters.numInitialGuesses    = 1;                 % number of pre-computed initial guesses to use at start of game
+parameters.numInitialGuesses    = 4;                 % number of pre-computed initial guesses to use at start of game
 if parameters.numInitialGuesses == 1
   parameters.wordleMode         = 'Hard';            % guess must be chosen from eligible candidates
   parameters.wordleTitle        = 'HARD WORDLE';
@@ -40,6 +39,7 @@ parameters.algorithm            = 'Ranked';          % default = 'Ranked'
 
 %----------------------------------------------------------------------------------------------------------------
 % PROCESS DATA AND BUILD DICTIONARY
+
 %=== read data files
 %=== dictionary12972 from https://docs.google.com/spreadsheets/d/1KR5lsyI60J1Ek6YgJRU2hKsk4iAOWvlPLUWjAZ6m8sg/edit#gid=0
 %=== answers2315     from https://docs.google.com/spreadsheets/d/1-M0RIVVZqbeh0mZacdAsJyBrLuEmhKUhNaVAI-7pr2Y/edit#gid=0
@@ -59,6 +59,7 @@ dictionary = buildDictionary(dictionaryWords, []);
 
 %----------------------------------------------------------------------------------------------------------------
 % BUILD EVALUATION SET AND INITIALIZE
+
 %=== set evaluation set
 if strcmp(parameters.evaluationSet,     'Full Dictionary')
   allAnswers = dictionary.words;

@@ -21,9 +21,10 @@ fprintf('\n');
 
 %=== initalize
 rng('default');                      % so we get same random number sequence every time
-previousGuesses = cell(1,1);
-previousScores  = cell(1,1);
-candidates      = dictionary.words;  % initial candidates are all possible answers
+previousGuesses  = cell(1,1);
+previousScores   = cell(1,1);
+candidates       = dictionary.words;  % initial candidates are all possible answers
+parameters.debug = 0;
 
 %----------------------------------------------------------------------------------------------------------------
 %=== you get 6 guesses

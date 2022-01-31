@@ -107,7 +107,7 @@ hold off;
 grid on;
 set(gca,'Color',parameters.bkgdColor);
 set(gca, 'LineWidth', 1);
-set(gca,'FontSize',14);
+set(gca,'FontSize',16);
 set(gca,'XTick',xTicks);  
 set(gca,'XTickLabel',xLabels(xTicks));
 xlabel(xLabel,'FontSize', 16);
