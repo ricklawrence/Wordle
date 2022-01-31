@@ -34,7 +34,7 @@ else
   parameters.wordleTitle        = sprintf('EASY WORDLE (%d FIXED INITIAL GUESSES)', parameters.numInitialGuesses);
 end
 
-%=== DEFAULT is ranked with no switching to use Wikipedia ranking
+%=== DEFAULT is ranked algorithm
 parameters.algorithm            = 'Random';
 parameters.algorithm            = 'Ranked';          % default = 'Ranked'
 
