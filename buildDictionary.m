@@ -1,4 +1,4 @@
-function dictionary = buildDictionary(dictionaryWords, testWord)
+function dictionary = buildDictionary(dictionaryWords)
 %
 % build the dictionary structure
 %
@@ -62,37 +62,3 @@ for i=2:5
   initialGuesses(i) = dictionary.words(sortIndex(1));         % save word with highest score
 end
 dictionary.initialGuesses = initialGuesses;
-
-%----------------------------------------------------------------------------
-%=== debug print
-if ~isempty(testWord)
-  
-  %=== print probabilty that any word contains specific letter
-  [~,sortIndex] = sort(dictionary.letterProbs, 'descend');
-  for i=1:length(dictionary.alphabet)
-    letter = sortIndex(i);
-    fprintf('%s %4.3f\n', dictionary.alphabet(letter), dictionary.letterProbs(letter));
-  end
-  
-  %=== print best initial guesses
-  [~,sortIndex] = sort(dictionary.fullScores, 'descend');
-  fprintf('Best initial guesses:\n');
-  for ww=1:10
-    w = sortIndex(ww);
-    fprintf('%s %5.4f\n', char(dictionary.words(w)), dictionary.fullScores(w));
-  end
-  
-  %=== print metrics for test word
-  w = find(strcmp(testWord, dictionary.words));
-  fprintf('Metrics for ''%s'':\n', testWord);
-  fprintf('Letter Matrix:\n');
-  for i=1:length(dictionary.alphabet)
-    fprintf('%2s', dictionary.alphabet(i));
-  end
-  fprintf('\n');
-  for i=1:length(dictionary.alphabet)
-    fprintf('%2d', dictionary.letterMatrix(w,i));
-  end
-  fprintf('\n');
-end
-%----------------------------------------------------------------------------

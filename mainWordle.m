@@ -19,12 +19,12 @@ parameters.bkgdColor            = [1 1 0.8];        % background color for plots
 parameters.maxIterations        = 50;
 parameters.maxGames             = 10000;
 
+parameters.evaluationSet        = 'Full Dictionary';
 parameters.evaluationSet        = 'Single Answer';
 parameters.evaluationSet        = 'Previous Answers';
-parameters.evaluationSet        = 'Full Dictionary';
 
 %=== DEFAULT is Hard Wordle (1 initial guess)
-parameters.numInitialGuesses    = 4;                 % number of pre-computed initial guesses to use at start of game
+parameters.numInitialGuesses    = 1;                 % number of pre-computed initial guesses to use at start of game
 if parameters.numInitialGuesses == 1
   parameters.wordleMode         = 'Hard';            % guess must be chosen from eligible candidates
   parameters.wordleTitle        = 'HARD WORDLE';
@@ -55,7 +55,7 @@ dictionaryWords = answers;
 fprintf('Using   2315 possible answers as dictionary.\n\n');
 
 %=== build dictionary structure
-dictionary = buildDictionary(dictionaryWords, []);
+dictionary = buildDictionary(dictionaryWords);
 
 %----------------------------------------------------------------------------------------------------------------
 % BUILD EVALUATION SET AND INITIALIZE
