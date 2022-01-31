@@ -34,11 +34,9 @@ else
   parameters.wordleTitle        = sprintf('EASY WORDLE (%d FIXED INITIAL GUESSES)', parameters.numInitialGuesses);
 end
 
-
 %=== DEFAULT is ranked with no switching to use Wikipedia ranking
 parameters.algorithm            = 'Random';
 parameters.algorithm            = 'Ranked';          % default = 'Ranked'
-parameters.numCandidates2Switch = 0;                 % default = 0; = 0 means we do not switch from standard ranked candidates
 
 %----------------------------------------------------------------------------------------------------------------
 % PROCESS DATA AND BUILD DICTIONARY
