@@ -112,5 +112,5 @@ set(gca,'XTick',xTicks);
 set(gca,'XTickLabel',xLabels(xTicks));
 xlabel(xLabel,'FontSize', 16);
 ylabel(yLabel,'FontSize', 16);
-xtickangle(45)
+xtickangle(45);
 title(strTitle, 'FontSize', 16);

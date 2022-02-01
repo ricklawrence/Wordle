@@ -20,8 +20,8 @@ parameters.maxIterations        = 50;
 parameters.maxGames             = 10000;
 
 parameters.evaluationSet        = 'Full Dictionary';
-parameters.evaluationSet        = 'Single Answer';
 parameters.evaluationSet        = 'Previous Answers';
+parameters.evaluationSet        = 'Single Answer';
 
 %=== DEFAULT is Hard Wordle (1 initial guess)
 parameters.numInitialGuesses    = 1;                 % number of pre-computed initial guesses to use at start of game
@@ -69,8 +69,6 @@ elseif strcmp(parameters.evaluationSet, 'Previous Answers')
   parameters.debug = 1;
 elseif strcmp(parameters.evaluationSet, 'Single Answer')
   allAnswers = pastAnswers(end);                              % latest wordle answer    
-  %allAnswers = dictionary.words(1544);                        % RARER
-  %allAnswers = dictionary.words(1287);                        % NANNY
   parameters.debug = 3;
 end
 

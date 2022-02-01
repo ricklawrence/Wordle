@@ -53,7 +53,7 @@ for iteration=1:6
   fprintf('Generated %d candidates.\n', length(candidates));
   if length(candidates) <= 20
     for c=1:length(candidates)
-      fprintf('%s\n', char(upper(candidates(c))));
+      fprintf('  %s\t%6.4f\n', char(upper(candidates(c))), scores(c));
     end
   end
   
