@@ -19,9 +19,9 @@ parameters.bkgdColor            = [1 1 0.8];        % background color for plots
 parameters.maxIterations        = 50;
 parameters.maxGames             = 10000;
 
+parameters.evaluationSet        = 'Single Answer';
 parameters.evaluationSet        = 'Full Dictionary';
 parameters.evaluationSet        = 'Previous Answers';
-parameters.evaluationSet        = 'Single Answer';
 
 %=== DEFAULT is Hard Wordle (1 initial guess)
 parameters.numInitialGuesses    = 1;                 % number of pre-computed initial guesses to use at start of game
@@ -32,6 +32,9 @@ else
   parameters.wordleMode         = 'Easy';            % you can use any word as guess 
   parameters.wordleTitle        = sprintf('EASY WORDLE (%d FIXED INITIAL GUESSES)', parameters.numInitialGuesses);
 end
+
+%=== set option to break ties using wikipedia ranks (DEFAULT = 1)
+parameters.useWikipedia         = 1;
 
 %=== DEFAULT is ranked algorithm
 parameters.algorithm            = 'Random';
@@ -52,10 +55,15 @@ pastAnswers = history.answers;
 
 %=== use all answers file as dictionary
 dictionaryWords = answers;
-fprintf('Using   2315 possible answers as dictionary.\n\n');
+fprintf('Using   2315 possible answers as dictionary.\n');
+
+%=== read full wikipedia file and write the sorted 5-letter words to new file
+inputFile  = sprintf('%s/%s', parameters.INPUT_PATH, 'wikipediaWordFrequency.txt'); 
+outputFile = sprintf('%s/%s', parameters.INPUT_PATH, 'wikipediaWordRanks.csv'); 
+wikiRanks  = readWikipediaFile(inputFile, outputFile, dictionaryWords);
 
 %=== build dictionary structure
-dictionary = buildDictionary(dictionaryWords);
+dictionary = buildDictionary(dictionaryWords, wikiRanks);
 
 %----------------------------------------------------------------------------------------------------------------
 % BUILD EVALUATION SET AND INITIALIZE
@@ -79,6 +87,7 @@ initialGuess = generateNewGuess(candidates, dictionary, [], iteration);
 allAnswers   = setdiff(allAnswers, initialGuess, 'stable');         % remove initial guess from evaluation set
 
 %=== print summary
+fprintf('\n');
 fprintf('Playing %s Wordle (%d initial guesses) using %s algorithm against %s evaluation set.\n', ...
            parameters.wordleMode, parameters.numInitialGuesses, parameters.algorithm, parameters.evaluationSet);
 if strcmp(parameters.wordleMode, 'Easy')
@@ -120,7 +129,7 @@ fprintf(' %s required the fewest guesses      = %4d\n',                    char(
 
 %=== plot results
 if strcmp(parameters.evaluationSet,'Full Dictionary') || strcmp(parameters.evaluationSet, 'Previous Answers')
-  plotResults(numGuesses, allAnswers, history);
+  plotResults(numGuesses, allAnswers, history, dictionary);
 end
 
 %=== print worst words

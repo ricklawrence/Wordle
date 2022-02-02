@@ -28,3 +28,14 @@ scores        = letterMatrix * letterProbs;
 [~,sortIndex] = sort(scores,'descend');
 candidates    = candidates(sortIndex);
 scores        = scores(sortIndex);
+
+%=== break tie at top of candidate list using Wikipedia ranks
+index0 = find(scores == scores(1));
+if parameters.useWikipedia && length(index0) > 1
+  candidates1        = candidates(index0);
+  index1             = find(contains(dictionary.words, candidates1));
+  ranks              = dictionary.wikiRanks(index1);
+  [~,sortIndex]      = sort(ranks, 'ascend');
+  candidates(index0) = candidates(index0(sortIndex));   % replace tied candidates with wiki-ranked candidates
+  scores(index0)     = ranks(sortIndex);                % ranks for tied candidates replaced by their wiki ranks
+end

@@ -1,4 +1,4 @@
-function dictionary = buildDictionary(dictionaryWords)
+function dictionary = buildDictionary(dictionaryWords, wikiRanks)
 %
 % build the dictionary structure
 %
@@ -48,6 +48,7 @@ dictionary.letterMatrix1 = letterMatrix1;
 dictionary.letterMatrix2 = letterMatrix2;
 dictionary.fullScores    = fullScores;
 dictionary.initialGuess  = initialGuess;
+dictionary.wikiRanks     = wikiRanks;
 
 %==== get best 5 successive initial guesses used in Easy Wordle
 initialGuesses    = cell(5,1);

@@ -1,4 +1,4 @@
-function plotResults(numGuesses, allAnswers, history)
+function plotResults(numGuesses, allAnswers, history, dictionary)
 %
 % plot result of this evaluation set
 %
@@ -62,7 +62,53 @@ if ~strcmp(parameters.evaluationSet, 'Previous Answers')
 end
 
 %--------------------------------------------------------------------
-%=== 2. BAR PLOT OF EACH PAST GAME
+%=== 2. BAR PLOT OF WIKIPEDIA WORD RANKS
+figureNum = figureNum + 1;
+figure(figureNum); fprintf('Figure %d.\n', figureNum);
+
+%=== bar plot
+[~,i1,i2]     = intersect(dictionary.words, allAnswers);
+wikiRanks(i2) = dictionary.wikiRanks(i1);
+y             = wikiRanks;
+xTicks        = 1:length(allAnswers);
+xLabels       = upper(allAnswers);
+h             = bar(y, 0.8, 'FaceColor', 'b');  hold on;
+
+%=== labels
+strTitle      = sprintf('Wikipedia Word-Frequency Ranks for %d Daily Wordle Puzzles From %s to %s', ...
+                       length(history.dates), char(history.dates(1)), char(history.dates(end)));
+xLabel        = sprintf('Wordle Daily Answer');
+yLabel        = sprintf('Wikipedia Rank');
+strLegends(1) = {sprintf('Words with lower ranks occur more frequently in Wikipedia')};
+strLegends(2) = {sprintf('Median Rank = %d (over %d possible Wordle answers)', median(wikiRanks), dictionary.length)};
+
+%=== get axis limits
+ax   = gca; 
+xmin = ax.XLim(1); 
+xmax = ax.XLim(2);
+ymin = ax.YLim(1); 
+ymax = ax.YLim(2);
+
+%=== horizontal line at median rank
+y0 = median(wikiRanks);
+plot([xmin,xmax],[y0,y0], 'k:', 'LineWidth', 2); hold on;
+
+%=== add axis labels
+hold off;
+grid on;
+set(gca,'Color',parameters.bkgdColor);
+set(gca, 'LineWidth', 1);
+set(gca,'FontSize',16);
+set(gca,'XTick',xTicks);  
+set(gca,'XTickLabel',xLabels(xTicks));
+xlabel(xLabel,'FontSize', 16);
+ylabel(yLabel,'FontSize', 16);
+xtickangle(45);
+legend(strLegends, 'Location', 'NorthWest', 'Fontsize', 12, 'FontName','FixedWidth', 'FontWeight','bold');
+title(strTitle, 'FontSize', 16);
+
+%--------------------------------------------------------------------
+%=== 3. BAR PLOT OF EACH PAST GAME
 figureNum = figureNum + 1;
 figure(figureNum); fprintf('Figure %d.\n', figureNum);
 
@@ -73,7 +119,10 @@ index2      = find(y>6);
 accuracy    = 100*length(index1) / length(y);
 meanGuesses = mean(numGuesses);
 h = bar(index1, y(index1), 0.8, 'FaceColor', 'g');  hold on;
-h = bar(index2, y(index2), 0.8, 'FaceColor', 'r');  hold on;
+%h = bar(index2, y(index2), 0.8, 'FaceColor', 'r');  hold on;  % this can give wide red bars ... no idea why
+for i=index2
+  h = bar(i, y(i), 0.8, 'FaceColor', 'r');  hold on;
+end
 xTicks  = 1:length(allAnswers);
 xLabels = upper(allAnswers);
 
