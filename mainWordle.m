@@ -20,18 +20,11 @@ parameters.maxIterations        = 50;
 parameters.maxGames             = 10000;
 
 parameters.evaluationSet        = 'Single Answer';
-parameters.evaluationSet        = 'Full Dictionary';
 parameters.evaluationSet        = 'Previous Answers';
+parameters.evaluationSet        = 'Full Dictionary';
 
 %=== DEFAULT is Hard Wordle (1 initial guess)
 parameters.numInitialGuesses    = 1;                 % number of pre-computed initial guesses to use at start of game
-if parameters.numInitialGuesses == 1
-  parameters.wordleMode         = 'Hard';            % guess must be chosen from eligible candidates
-  parameters.wordleTitle        = 'HARD WORDLE';
-else
-  parameters.wordleMode         = 'Easy';            % you can use any word as guess 
-  parameters.wordleTitle        = sprintf('EASY WORDLE (%d FIXED INITIAL GUESSES)', parameters.numInitialGuesses);
-end
 
 %=== set option to break ties using wikipedia ranks (DEFAULT = 1)
 parameters.useWikipedia         = 1;
@@ -42,6 +35,21 @@ parameters.algorithm            = 'Ranked';          % default = 'Ranked'
 
 %----------------------------------------------------------------------------------------------------------------
 % PROCESS DATA AND BUILD DICTIONARY
+
+%=== set title for plots 
+if parameters.numInitialGuesses == 1
+  parameters.wordleMode         = 'Hard';            % guess must be chosen from eligible candidates
+  wordleTitle1                  = 'HARD WORDLE';
+else
+  parameters.wordleMode         = 'Easy';            % you can use any word as guess 
+  wordleTitle1                  = sprintf('EASY WORDLE (%d FIXED INITIAL GUESSES)', parameters.numInitialGuesses);
+end
+if parameters.useWikipedia
+  wordleTitle2                  = sprintf(': %s algorithm with Wikipedia word ranks', parameters.algorithm);
+else
+  wordleTitle2                  = sprintf(': %s algorithm without Wikipedia word ranks', parameters.algorithm);
+end
+parameters.wordleTitle          = sprintf('%s%s', wordleTitle1, wordleTitle2);
 
 %=== read data files
 %=== dictionary12972 from https://docs.google.com/spreadsheets/d/1KR5lsyI60J1Ek6YgJRU2hKsk4iAOWvlPLUWjAZ6m8sg/edit#gid=0
@@ -59,7 +67,7 @@ fprintf('Using   2315 possible answers as dictionary.\n');
 
 %=== read full wikipedia file and write the sorted 5-letter words to new file
 inputFile  = sprintf('%s/%s', parameters.INPUT_PATH, 'wikipediaWordFrequency.txt'); 
-outputFile = sprintf('%s/%s', parameters.INPUT_PATH, 'wikipediaWordRanks.csv'); 
+outputFile = sprintf('%s/%s', parameters.INPUT_PATH, 'wikipediaWordRanks2315.csv'); 
 wikiRanks  = readWikipediaFile(inputFile, outputFile, dictionaryWords);
 
 %=== build dictionary structure
@@ -76,14 +84,15 @@ elseif strcmp(parameters.evaluationSet, 'Previous Answers')
   allAnswers = pastAnswers;
   parameters.debug = 1;
 elseif strcmp(parameters.evaluationSet, 'Single Answer')
-  allAnswers = pastAnswers(end);                              % latest wordle answer    
+  allAnswers = pastAnswers(end);                              % latest wordle answer   
+  %allAnswers = {'robot'};
   parameters.debug = 3;
 end
 
 %=== set initial guess for all games (and remove from evaluation set)
 iteration    = 1;
 candidates   = dictionary.words;                                    % start with full dicitonary
-initialGuess = generateNewGuess(candidates, dictionary, [], iteration);
+initialGuess = generateNewGuess(candidates, dictionary, iteration);
 allAnswers   = setdiff(allAnswers, initialGuess, 'stable');         % remove initial guess from evaluation set
 
 %=== print summary
@@ -104,10 +113,9 @@ end
 %=== PLAY ONE GAME OF WORDLE FOR EACH WORD IN THE EVALUATION SET
 numGames      = min(parameters.maxGames, length(allAnswers));
 numGuesses    = zeros(length(numGames), 1);
-numCandidates = zeros(length(numGames), 1);
 for game=1:numGames
   correctAnswer    = char(allAnswers(game));
-  [numGuesses(game), numCandidates(game)] = playWordle(correctAnswer, dictionary);
+  numGuesses(game) = playWordle(correctAnswer, dictionary);
   if parameters.debug >= 1
     fprintf('Game %4d: Answer = %s required %3d guesses\n', game, char(upper(correctAnswer)), numGuesses(game));
   end
@@ -122,7 +130,6 @@ end
 successful = length(find(numGuesses <= 6));
 fprintf('\nPlayed %d games using %s algorithm:\n', numGames, parameters.algorithm);
 fprintf(' Mean number of guesses                 = %4.2f\n',               mean(numGuesses));
-fprintf(' Mean number of candidates              = %4.0f\n',               mean(numCandidates));
 fprintf(' Number of games with 6 guesses or less = %4d (%3.1f%%)\n',       successful, 100*successful/numGames);
 fprintf(' %s required the most guesses        = %4d\n',                    char(upper(allAnswers(gameMax))), maxGuesses);
 fprintf(' %s required the fewest guesses      = %4d\n',                    char(upper(allAnswers(gameMin))), minGuesses);

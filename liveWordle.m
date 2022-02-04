@@ -22,7 +22,6 @@ fprintf('\n');
 %=== initalize
 rng('default');                      % so we get same random number sequence every time
 previousGuesses  = cell(1,1);
-previousScores   = cell(1,1);
 candidates       = dictionary.words;  % initial candidates are all possible answers
 parameters.debug = 0;
 
@@ -31,7 +30,7 @@ parameters.debug = 0;
 for iteration=1:6
   
   %=== generate new guess
-  guess = generateNewGuess(candidates, dictionary, previousGuesses, iteration);
+  guess = generateNewGuess(candidates, dictionary, iteration);
   fprintf('Enter %s as guess number %d in Wordle.\n', upper(guess), iteration);
 
   %=== input returned vector from Wordle
@@ -46,8 +45,7 @@ for iteration=1:6
 
   %=== get new set of candidates
   previousGuesses(iteration) = {guess};
-  previousScores(iteration)  = {vector};
-  [candidates, scores] = generateCandidates(vector, guess, candidates, previousGuesses, previousScores, dictionary);
+  [candidates, scores] = generateCandidates(vector, guess, candidates, previousGuesses, dictionary);
   
   %=== print candidates if list is small enough
   fprintf('Generated %d candidates.\n', length(candidates));

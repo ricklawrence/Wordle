@@ -1,4 +1,4 @@
-function guess = generateNewGuess(candidates, dictionary, previousGuesses, iteration)
+function guess = generateNewGuess(candidates, dictionary, iteration)
 %
 % return a new guess
 %
@@ -16,16 +16,8 @@ if iteration <= parameters.numInitialGuesses && strcmp(parameters.wordleMode, 'E
   return;
 end
 
-%=== if using random algorithm and iteration > 1, return random guess from list of candidates
-if strcmp(parameters.algorithm, 'Random')
-  index = randperm(length(candidates));
-  index = index(1);
-  guess = char(candidates(index));
-  return;
-end
-
-%=== if using ranked algorithm and iteration > 1, return candidate with highest rank
-if strcmp(parameters.algorithm, 'Ranked')
+%=== if iteration > 1, return candidate with highest rank
+if iteration > 1
   guess = char(candidates(1));
   return;
 end

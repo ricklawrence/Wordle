@@ -1,4 +1,4 @@
-function [candidates, scores] = rankCandidates(candidates, previousGuesses, previousScores, dictionary)
+function [candidates, scores] = rankCandidates(candidates, previousGuesses, dictionary)
 %
 % rank the candidates based on commonality of letters in the word
 %
@@ -17,6 +17,7 @@ reducedAlphabet  = setdiff(alphabet, previousAlphabet);
 [~,indexC]   = intersect(dictionary.words,    candidates);
 [~,indexA]   = intersect(dictionary.alphabet, reducedAlphabet);
 letterMatrix = dictionary.letterMatrix1(indexC,indexA);  % = 1 for N in NANNY (this is slightly more accurate)
+%letterProbs  = dictionary.letterProbs(indexA);
 
 %=== use letter probabilities computed for candidates, not dictionary
 %=== this works because we only care about the relationship among candidates, independent of the entire dictionary
@@ -28,6 +29,13 @@ scores        = letterMatrix * letterProbs;
 [~,sortIndex] = sort(scores,'descend');
 candidates    = candidates(sortIndex);
 scores        = scores(sortIndex);
+
+%=== if random, randomize candidates and zero out scores
+if strcmp(parameters.algorithm, 'Random')
+  index      = randperm(length(candidates));
+  candidates = candidates(index);
+  scores     = zeros(length(candidates),1);
+end
 
 %=== break tie at top of candidate list using Wikipedia ranks
 index0 = find(scores == scores(1));

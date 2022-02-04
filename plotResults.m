@@ -32,9 +32,9 @@ if strcmp(parameters.evaluationSet,'Full Dictionary')
 elseif strcmp(parameters.evaluationSet, 'Previous Answers')
   strTitle1 = sprintf('Evaluation Set: %d answers from all daily 2022 Wordle puzzles', numGames);
 end
-strTitle2    = sprintf('%s:  Success Rate = %2.1f%%  Mean Guesses = %3.2f', ...
-                        parameters.wordleTitle, accuracy, meanGuesses);
-strTitle     = sprintf('%s\n%s', strTitle1, strTitle2);
+strTitle2   = parameters.wordleTitle;
+strTitle3   = sprintf('Success Rate = %2.1f%%  Mean Guesses = %3.2f', accuracy, meanGuesses);
+strTitle    = sprintf('%s\n%s\n%s', strTitle1, strTitle2, strTitle3);
 
 %=== set legend and description
 strLegend(1) = {sprintf('Won  (Success Rate = %2.1f%%)', accuracy)}; 
@@ -129,9 +129,9 @@ xLabels = upper(allAnswers);
 %=== labels
 strTitle1    = sprintf('Results for %d Daily Wordle Puzzles From %s to %s', ...
                        length(history.dates), char(history.dates(1)), char(history.dates(end)));
-strTitle2    = sprintf('%s:  Success Rate = %2.1f%%  Mean Guesses = %3.2f', ...
-                        parameters.wordleTitle, accuracy, meanGuesses);
-strTitle     = sprintf('%s\n%s', strTitle1, strTitle2);
+strTitle2    = parameters.wordleTitle;
+strTitle3    = sprintf('Success Rate = %2.1f%%  Mean Guesses = %3.2f', accuracy, meanGuesses);
+strTitle     = sprintf('%s\n%s\n%s', strTitle1, strTitle2, strTitle3);
 xLabel       = sprintf('Wordle Daily Answer');
 yLabel       = 'Number of Guesses';
 

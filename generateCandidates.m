@@ -1,4 +1,4 @@
-function [candidates, scores] = generateCandidates(vector, guess, candidates, previousGuesses, previousScores, dictionary)
+function [candidates, scores] = generateCandidates(vector, guess, candidates, previousGuesses, dictionary)
 %
 % return candidates for given vector against the current candidate list
 %
@@ -33,4 +33,4 @@ candidates = unique(candidates(index));
 candidates = setdiff(candidates, previousGuesses);
 
 %=== rank candidates to get words with common letters not used in previous guess
-[candidates, scores]   = rankCandidates(candidates, previousGuesses, previousScores, dictionary);
+[candidates, scores]   = rankCandidates(candidates, previousGuesses, dictionary);
