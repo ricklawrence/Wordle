@@ -1,5 +1,5 @@
 %----------------------------------------------------------------------------------------------------------------
-% wordle 
+% Wordle Genius
 %
 % Rick Lawrence
 %
@@ -19,12 +19,12 @@ parameters.bkgdColor            = [1 1 0.8];        % background color for plots
 parameters.maxIterations        = 50;
 parameters.maxGames             = 10000;
 
+parameters.evaluationSet        = 'Full Dictionary';
 parameters.evaluationSet        = 'Single Answer';
 parameters.evaluationSet        = 'Previous Answers';
-parameters.evaluationSet        = 'Full Dictionary';
 
 %=== DEFAULT is Hard Wordle (1 initial guess)
-parameters.numInitialGuesses    = 1;                 % number of pre-computed initial guesses to use at start of game
+parameters.numInitialGuesses    = 4;                 % number of pre-computed initial guesses to use at start of game
 
 %=== set option to break ties using wikipedia ranks (DEFAULT = 1)
 parameters.useWikipedia         = 1;
@@ -85,7 +85,7 @@ elseif strcmp(parameters.evaluationSet, 'Previous Answers')
   parameters.debug = 1;
 elseif strcmp(parameters.evaluationSet, 'Single Answer')
   allAnswers = pastAnswers(end);                              % latest wordle answer   
-  %allAnswers = {'robot'};
+  %allAnswers = {'nanny'};
   parameters.debug = 3;
 end
 

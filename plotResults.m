@@ -80,7 +80,7 @@ strTitle      = sprintf('Wikipedia Word-Frequency Ranks for %d Daily Wordle Puzz
 xLabel        = sprintf('Wordle Daily Answer');
 yLabel        = sprintf('Wikipedia Rank');
 strLegends(1) = {sprintf('Words with lower ranks occur more frequently in Wikipedia')};
-strLegends(2) = {sprintf('Median Rank = %d (over %d possible Wordle answers)', median(wikiRanks), dictionary.length)};
+strLegends(2) = {sprintf('Median Rank = %2.0f (over %d possible Wordle answers)', median(wikiRanks), dictionary.length)};
 
 %=== get axis limits
 ax   = gca; 
@@ -98,7 +98,7 @@ hold off;
 grid on;
 set(gca,'Color',parameters.bkgdColor);
 set(gca, 'LineWidth', 1);
-set(gca,'FontSize',16);
+set(gca,'FontSize',12);
 set(gca,'XTick',xTicks);  
 set(gca,'XTickLabel',xLabels(xTicks));
 xlabel(xLabel,'FontSize', 16);
@@ -156,7 +156,7 @@ hold off;
 grid on;
 set(gca,'Color',parameters.bkgdColor);
 set(gca, 'LineWidth', 1);
-set(gca,'FontSize',16);
+set(gca,'FontSize',12);
 set(gca,'XTick',xTicks);  
 set(gca,'XTickLabel',xLabels(xTicks));
 xlabel(xLabel,'FontSize', 16);
